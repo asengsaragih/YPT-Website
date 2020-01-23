@@ -18,7 +18,7 @@
         $conn = conn();
 
         function someFunction () {
-            $conn = db();
+            $conn = conn();
             $result = mysqli_query ($conn, "SELECT * FROM examples);
         }
 
