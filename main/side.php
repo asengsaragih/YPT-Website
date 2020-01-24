@@ -102,7 +102,7 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">DATA</h6>
-            <a class="collapse-item" href="#">Input PMB</a>
+            <a class="collapse-item" href="inputPMB.php">Input PMB</a>
             <a class="collapse-item" href="#">Laporan</a>
             <!-- <div class="collapse-divider"></div> -->
           </div>

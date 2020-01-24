@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Jan 2020 pada 08.24
+-- Waktu pembuatan: 24 Jan 2020 pada 19.46
 -- Versi server: 10.3.16-MariaDB
 -- Versi PHP: 7.3.6
 
@@ -32,6 +32,16 @@ CREATE TABLE `kampus` (
   `id_kampus` int(10) NOT NULL,
   `nama_kampus` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `kampus`
+--
+
+INSERT INTO `kampus` (`id_kampus`, `nama_kampus`) VALUES
+(1, 'Tel-u'),
+(2, 'ITTP'),
+(3, 'Akatel'),
+(4, 'ITTS');
 
 -- --------------------------------------------------------
 
@@ -79,7 +89,7 @@ CREATE TABLE `realisasi` (
 
 CREATE TABLE `target` (
   `id_target` int(10) NOT NULL,
-  `tahun` int(4) NOT NULL,
+  `tahun_target` int(4) NOT NULL,
   `september_target` int(10) NOT NULL DEFAULT 0,
   `oktober_target` int(10) NOT NULL DEFAULT 0,
   `november_target` int(10) NOT NULL DEFAULT 0,
@@ -151,25 +161,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `kampus`
 --
 ALTER TABLE `kampus`
-  MODIFY `id_kampus` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kampus` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `pmb`
 --
 ALTER TABLE `pmb`
-  MODIFY `id_pmb` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pmb` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `realisasi`
 --
 ALTER TABLE `realisasi`
-  MODIFY `id_realisasi` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_realisasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `target`
 --
 ALTER TABLE `target`
-  MODIFY `id_target` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_target` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
