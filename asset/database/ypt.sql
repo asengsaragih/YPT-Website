@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Jan 2020 pada 19.46
+-- Waktu pembuatan: 26 Jan 2020 pada 15.11
 -- Versi server: 10.3.16-MariaDB
 -- Versi PHP: 7.3.6
 
@@ -58,6 +58,14 @@ CREATE TABLE `pmb` (
   `id_realisasi` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `pmb`
+--
+
+INSERT INTO `pmb` (`id_pmb`, `tahun_target_pmb`, `tahun_realisasi_pmb`, `id_kampus`, `id_target`, `id_realisasi`) VALUES
+(3, 2020, 2019, 1, 31, 30),
+(4, 2021, 2020, 1, 32, 31);
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +89,14 @@ CREATE TABLE `realisasi` (
   `agustus_realisasi` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `realisasi`
+--
+
+INSERT INTO `realisasi` (`id_realisasi`, `tahun_realisasi`, `september_realisasi`, `oktober_realisasi`, `november_realisasi`, `desember_realisasi`, `januari_realisasi`, `februari_realisasi`, `maret_realisasi`, `april_realisasi`, `mei_realisasi`, `juni_realisasi`, `juli_realisasi`, `agustus_realisasi`) VALUES
+(30, 2019, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(31, 2020, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -103,6 +119,14 @@ CREATE TABLE `target` (
   `juli_target` int(10) NOT NULL DEFAULT 0,
   `agustus_target` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `target`
+--
+
+INSERT INTO `target` (`id_target`, `tahun_target`, `september_target`, `oktober_target`, `november_target`, `desember_target`, `januari_target`, `februari_target`, `maret_target`, `april_target`, `mei_target`, `juni_target`, `juli_target`, `agustus_target`) VALUES
+(31, 2020, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(32, 2021, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -167,19 +191,19 @@ ALTER TABLE `kampus`
 -- AUTO_INCREMENT untuk tabel `pmb`
 --
 ALTER TABLE `pmb`
-  MODIFY `id_pmb` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pmb` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `realisasi`
 --
 ALTER TABLE `realisasi`
-  MODIFY `id_realisasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_realisasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT untuk tabel `target`
 --
 ALTER TABLE `target`
-  MODIFY `id_target` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_target` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
