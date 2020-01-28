@@ -137,7 +137,11 @@
                 $juli_target = $key_target['juli_target'];
                 $agustus_target = $key_target['agustus_target'];
 
-                formEditPMB($januari_target, $februari_target, $maret_target, $april_target, $mei_target, $juni_target, $juli_target, $agustus_target, $september_target, $oktober_target, $november_target, $desember_target);
+                formEditPMB($januari_target, $februari_target, $maret_target, $april_target, $mei_target, $juni_target, $juli_target, $agustus_target, $september_target, $oktober_target, $november_target, $desember_target, 1);
+            
+                $qry_kampus_target = mysqli_query($conn, "SELECT id_kampus FROM pmb WHERE id_target = '$id_target' LIMIT 1");
+                $id_kampus_target = mysqli_fetch_assoc($qry_kampus_target);
+                updatePMBTarget($id_target, $id_kampus_target['id_kampus']);
             }
         }
 
@@ -159,13 +163,21 @@
                 $juli_realisasi = $key_realisasi['juli_realisasi'];
                 $agustus_realisasi = $key_realisasi['agustus_realisasi'];
 
-                formEditPMB($januari_realisasi, $februari_realisasi, $maret_realisasi, $april_realisasi, $mei_realisasi, $juni_realisasi, $juli_realisasi, $agustus_realisasi, $september_realisasi, $oktober_realisasi, $november_realisasi, $desember_realisasi);
+                formEditPMB($januari_realisasi, $februari_realisasi, $maret_realisasi, $april_realisasi, $mei_realisasi, $juni_realisasi, $juli_realisasi, $agustus_realisasi, $september_realisasi, $oktober_realisasi, $november_realisasi, $desember_realisasi, 2);
+            
+                $qry_kampus_realisasi = mysqli_query($conn, "SELECT id_kampus FROM pmb WHERE id_realisasi = '$id_realisasi' LIMIT 1");
+                $id_kampus_realisasi = mysqli_fetch_assoc($qry_kampus_realisasi);
+                updatePMBRealisasi($id_realisasi , $id_kampus_realisasi['id_kampus']);
             }
         }
     }
 
-    function formEditPMB(int $jan, int $feb, int $mar, int $apr, int $mei, int $jun, int $jul, int $ags, int $sep, int $okt, int $nov, int $des)
+    function formEditPMB(int $jan, int $feb, int $mar, int $apr, int $mei, int $jun, int $jul, int $ags, int $sep, int $okt, int $nov, int $des, int $statusPMB)
     {
+        /*
+            status 1 untuk target
+            status 2 untuk realisasi
+        */
         ?>
         <div class="form-group">
             <h6>September : </h6>
@@ -216,6 +228,115 @@
             <input type="number" name="agustus" value="<?php echo $ags; ?>" class="form-control form-control-user" id="exampleInputNumber" aria-describedby="emailHelp" required>
         </div>
         <?php
+            if ($statusPMB == 1) {
+                ?>
+                <div class="form-group">
+                    <input style="background-color: blueviolet; color: white; font-weight: bold;" type="submit" name="updatePMBTarget" class="form-control form-control-user" value="Update Target">
+                </div>
+                <?php
+            } else {
+                ?>
+                <div class="form-group">
+                    <input style="background-color: blueviolet; color: white; font-weight: bold;" type="submit" name="updatePMBRealisasi" class="form-control form-control-user" value="Update Realisasi">
+                </div>
+                <?php
+            }
+    }
+
+    function updatePMBTarget(int $id_target, int $id_kampus) {
+        $conn = conn();
+
+        if (isset($_POST['updatePMBTarget'])) {
+            $september = $_POST['september'];
+            $oktober = $_POST['oktober'];
+            $november = $_POST['november'];
+            $desember = $_POST['desember'];
+            $januari = $_POST['januari'];
+            $februari = $_POST['februari'];
+            $maret = $_POST['maret'];
+            $april = $_POST['april'];
+            $mei = $_POST['mei'];
+            $juni = $_POST['juni'];
+            $juli = $_POST['juli'];
+            $agustus = $_POST['agustus'];
+
+            $qry = mysqli_query($conn, 
+                "UPDATE target SET 
+                    september_target = $september,
+                    oktober_target = $oktober, 
+                    november_target = $november, 
+                    desember_target = $desember, 
+                    januari_target = $januari, 
+                    februari_target = $februari, 
+                    maret_target = $maret, 
+                    april_target = $april, 
+                    mei_target = $mei, 
+                    juni_target = $juni, 
+                    juli_target = $juli, 
+                    agustus_target = $agustus WHERE id_target = $id_target");
+
+            if ($qry) {
+                if ($id_kampus == 1) {
+                    toastMessageIntent("pmbTelkom.php", "Berhasil Memperbaruhi Data");
+                } elseif ($id_kampus == 2) {
+                    toastMessageIntent("pmbITTP.php", "Berhasil Memperbaruhi Data");
+                } elseif ($id_kampus == 3) {
+                    toastMessageIntent("pmbAkatel.php", "Berhasil Memperbaruhi Data");
+                } else {
+                    toastMessageIntent("pmbITTS.php", "Berhasil Memperbaruhi Data");
+                }
+            } else {
+                toastMessage("Gagal Memperbaruhi Data");
+            }
+        }
+    }
+
+    function updatePMBRealisasi(int $id_realisasi, int $id_kampus) {
+        $conn = conn();
+
+        if (isset($_POST['updatePMBRealisasi'])) {
+            $september = $_POST['september'];
+            $oktober = $_POST['oktober'];
+            $november = $_POST['november'];
+            $desember = $_POST['desember'];
+            $januari = $_POST['januari'];
+            $februari = $_POST['februari'];
+            $maret = $_POST['maret'];
+            $april = $_POST['april'];
+            $mei = $_POST['mei'];
+            $juni = $_POST['juni'];
+            $juli = $_POST['juli'];
+            $agustus = $_POST['agustus'];
+
+            $qry = mysqli_query($conn, 
+                "UPDATE realisasi SET 
+                    september_realisasi = $september,
+                    oktober_realisasi = $oktober, 
+                    november_realisasi = $november, 
+                    desember_realisasi = $desember, 
+                    januari_realisasi = $januari, 
+                    februari_realisasi = $februari, 
+                    maret_realisasi = $maret, 
+                    april_realisasi = $april, 
+                    mei_realisasi = $mei, 
+                    juni_realisasi = $juni, 
+                    juli_realisasi = $juli, 
+                    agustus_realisasi = $agustus WHERE id_realisasi = $id_realisasi");
+            
+            if ($qry) {
+                if ($id_kampus == 1) {
+                    toastMessageIntent("pmbTelkom.php", "Berhasil Memperbaruhi Data");
+                } elseif ($id_kampus == 2) {
+                    toastMessageIntent("pmbITTP.php", "Berhasil Memperbaruhi Data");
+                } elseif ($id_kampus == 3) {
+                    toastMessageIntent("pmbAkatel.php", "Berhasil Memperbaruhi Data");
+                } else {
+                    toastMessageIntent("pmbITTS.php", "Berhasil Memperbaruhi Data");
+                }
+            } else {
+                toastMessage("Gagal Memperbaruhi Data");
+            }
+        }
     }
 
     function test() {
@@ -224,6 +345,10 @@
 
     function toastMessage(String $message) {
         echo "<script>alert('$message');</script>";
+    }
+
+    function toastMessageWithPrevPage(String $message) {
+        echo "<script>alert('$message'); window.history.go(-2); </script>";
     }
 
     function toastMessageIntent(String $context, String $message) {

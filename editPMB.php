@@ -9,18 +9,15 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Form Edit PMB - Telkom Realisasi 2019</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Form Edit PMB</h6>
   </div>
   <div class="card-body">
       <form class="user" method="POST">
           <?php getNilaiPMBTargetRealisasi(); ?>
-          <div class="form-group">
-              <input style="background-color: blueviolet; color: white; font-weight: bold;" type="submit" name="login" class="form-control form-control-user" value="Update Data">
-          </div>
-        </form>
+      </form>
   </div>
 </div>
 
 <?php
-    include ("main/footer.php"); 
+  include ("main/footer.php");
 ?>
