@@ -26,7 +26,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <h6>Insert Password : </h6>
+                        <h6>Nama Kampus : </h6>
                         <select name="campus" class="custom-select custom-select-sm form-control form-control-sm" required>
                             <?php
                                 getAllCampusData();
