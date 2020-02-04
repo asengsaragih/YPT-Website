@@ -34,6 +34,13 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <h6>Nama Kampus : </h6>
+                        <select name="category" class="custom-select custom-select-sm form-control form-control-sm" required>
+                            <option value="1">Pendaftar</option>
+                            <option value="2">Registrasi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <input style="background-color: blueviolet; color: white; font-weight: bold;" type="submit" name="addData" class="form-control form-control-user" value="Add PMB">
                     </div>
                   </form>
@@ -53,6 +60,7 @@
                       <th>Penyedia</th>
                       <th>Tahun Target</th>
                       <th>Tahun Realisasi</th>
+                      <th>Kategori</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -71,24 +79,25 @@
 
         $year = $_POST['year'];
         $campus = $_POST['campus'];
+        $categoty = $_POST['category'];
 
-        checkPMB($year, $campus);
+        checkPMB($year, $campus, $categoty);
     }
 
-    function checkPMB(int $year, int $id_campus) {
+    function checkPMB(int $year, int $id_campus, int $kategory) {
         $conn = conn();
-        $sql = "SELECT * FROM pmb WHERE tahun_target_pmb = '$year' AND id_kampus = '$id_campus'";
+        $sql = "SELECT * FROM pmb WHERE tahun_target_pmb = '$year' AND id_kampus = '$id_campus' AND kategori_pmb = '$kategory'";
         $qry = mysqli_query($conn, $sql);
         $check = mysqli_num_rows($qry);
 
         if ($check > 0) {
             toastMessageIntent("laporanPMB.php", "Data Sudah Ada");
         } else {
-            insertPMB($year, $id_campus);
+            insertPMB($year, $id_campus, $kategory);
         }
     }
 
-    function insertPMB(int $year, int $id_campus) {
+    function insertPMB(int $year, int $id_campus, int $category) {
         $conn = conn();
 
         $realisasiYear = $year - 1;
@@ -109,10 +118,10 @@
                 $last_id_realisasi = $key_id_realisasi['id_realisasi'];
                 $last_id_target = $key_id_target['id_target'];
 
-                $qryPMB = mysqli_query($conn, "INSERT INTO pmb (tahun_target_pmb, tahun_realisasi_pmb, id_kampus, id_target, id_realisasi) VALUES ('$targetYear', '$realisasiYear', '$id_campus', '$last_id_target', '$last_id_realisasi')");
+                $qryPMB = mysqli_query($conn, "INSERT INTO pmb (tahun_target_pmb, tahun_realisasi_pmb, kategori_pmb, id_kampus, id_target, id_realisasi) VALUES ('$targetYear', '$realisasiYear', '$category', '$id_campus', '$last_id_target', '$last_id_realisasi')");
                 
                 if ($qryPMB) {
-                    toastMessage("Berhasil Membuat Data PMB");
+                    toastMessageIntent("inputPMB.php","Berhasil Membuat Data PMB");
                 }
             }
         }
@@ -148,12 +157,21 @@
         $i = 1;
 
         while ($key = mysqli_fetch_array($qry)) {
+            $id = $key['id_pmb'];
+            $category = $key['kategori_pmb'];
             ?>
                 <tr>
                     <td><?php echo $i++; ?></td>
-                    <td><?php showCampusName($key['id_kampus']); ?></td>
+                    <td><a href="<?php echo "pmbData.php?id_pmb=".$id; ?>"><?php showCampusName($key['id_kampus']); ?></a></td>
                     <td><?php echo $key['tahun_target_pmb'] ?></td>
                     <td><?php echo $key['tahun_realisasi_pmb'] ?></td>
+                    <td><?php
+                        if ($category == 1) {
+                            echo "Pendaftar";
+                        } else {
+                            echo "Registrasi";
+                        }
+                        ?></td>
                     <td>
                         <form class="user" method="POST">
                             <input style="display: none;" type="number" value="<?php echo $key['id_pmb']; ?>" name="id_pmb">

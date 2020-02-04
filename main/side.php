@@ -90,7 +90,7 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Kelola data
+        Master Data
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -103,15 +103,15 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Input Data</h6>
             <a class="collapse-item" href="inputPMB.php">Input PMB</a>
-            <h6 class="collapse-header">Kampus</h6>
-            <a class="collapse-item" href="pmbTelkom.php">Tel-U</a>
-            <a class="collapse-item" href="pmbITTP.php">ITTP</a>
-            <a class="collapse-item" href="pmbAkatel.php">Akatel</a>
-            <a class="collapse-item" href="pmbITTS.php">ITTS</a>
-            <!-- <div class="collapse-divider"></div> -->
+<!--            <h6 class="collapse-header">Kampus</h6>-->
+<!--            <a class="collapse-item" href="pmbTelkom.php">Tel-U</a>-->
+<!--            <a class="collapse-item" href="pmbITTP.php">ITTP</a>-->
+<!--            <a class="collapse-item" href="pmbAkatel.php">Akatel</a>-->
+<!--            <a class="collapse-item" href="pmbITTS.php">ITTS</a>-->
           </div>
         </div>
       </li>
+
 
       <!-- Heading -->
       <div class="sidebar-heading">
