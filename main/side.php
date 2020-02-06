@@ -19,6 +19,8 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
 </head>
 
 <body id="page-top">
