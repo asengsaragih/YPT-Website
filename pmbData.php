@@ -73,132 +73,239 @@
         var id = document.getElementById("monthChart");
         id.addEventListener("click", function () {
             if (id.value === "9") {
-
+                showChart(9);
             }
 
             if (id.value === "10") {
-
+                showChart(10);
             }
 
             if (id.value === "11") {
-
+                showChart(11);
             }
 
             if (id.value === "12") {
-
+                showChart(12);
             }
 
             if (id.value === "1") {
-
+                showChart(1);
             }
 
             if (id.value === "2") {
-
+                showChart(2);
             }
 
             if (id.value === "3") {
-
+                showChart(3);
             }
 
             if (id.value === "4") {
-
+                showChart(4);
             }
 
             if (id.value === "5") {
-
+                showChart(5);
             }
 
             if (id.value === "6") {
-
+                showChart(6);
             }
             
             if (id.value === "7") {
-                
+                showChart(7);
             }
             
             if (id.value === "8") {
-
+                showChart(8);
             }
 
         });
         
         function showChart(month) {
+
             Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
             Chart.defaults.global.defaultFontColor = '#858796';
 
             var dataMonth;
             var dataFull;
+            var dataGabungan;
+
+            dataFull = {
+                label: "Data Tahunan",
+                data: [<?php totalfullMonthPMB(idPMB()) ?>],
+                backgroundColor: 'rgba(99, 132, 0, 0.6)',
+                borderWidth: 0
+            };
 
             if (month == 9) {
                 dataMonth = {
                     label: "Data September",
                     data: [<?php totalOneMonthPMB(idPMB(), 9); ?>],
                     backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0,
-                    yAxisID: "y-axis-density"
+                    borderWidth: 0
                 };
             } else if (month == 10) {
                 dataMonth = {
                     label: "Data Oktober",
                     data: [<?php totalOneMonthPMB(idPMB(), 10); ?>],
                     backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0,
-                    yAxisID: "y-axis-density"
+                    borderWidth: 0
                 };
             } else if (month == 11) {
                 dataMonth = {
                     label: "Data November",
                     data: [<?php totalOneMonthPMB(idPMB(), 11); ?>],
                     backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0,
-                    yAxisID: "y-axis-density"
+                    borderWidth: 0
                 };
             } else if (month == 12) {
                 dataMonth = {
                     label: "Data Desember",
                     data: [<?php totalOneMonthPMB(idPMB(), 12); ?>],
                     backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0,
-                    yAxisID: "y-axis-density"
+                    borderWidth: 0
                 };
             } else if (month == 1) {
                 dataMonth = {
                     label: "Data Januari",
                     data: [<?php totalOneMonthPMB(idPMB(), 1); ?>],
                     backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0,
-                    yAxisID: "y-axis-density"
+                    borderWidth: 0
                 };
             } else if (month == 2) {
                 dataMonth = {
                     label: "Data Februari",
                     data: [<?php totalOneMonthPMB(idPMB(), 2); ?>],
                     backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0,
-                    yAxisID: "y-axis-density"
+                    borderWidth: 0
                 };
             } else if (month == 3) {
                 dataMonth = {
                     label: "Data Maret",
                     data: [<?php totalOneMonthPMB(idPMB(), 3); ?>],
                     backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0,
-                    yAxisID: "y-axis-density"
+                    borderWidth: 0
                 };
             } else if (month == 4) {
-
+                dataMonth = {
+                    label: "Data April",
+                    data: [<?php totalOneMonthPMB(idPMB(), 4); ?>],
+                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                    borderWidth: 0
+                };
             } else if (month == 5) {
-
+                dataMonth = {
+                    label: "Data Mei",
+                    data: [<?php totalOneMonthPMB(idPMB(), 5); ?>],
+                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                    borderWidth: 0
+                };
             } else if (month == 6) {
-
+                dataMonth = {
+                    label: "Data Juni",
+                    data: [<?php totalOneMonthPMB(idPMB(), 6); ?>],
+                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                    borderWidth: 0
+                };
             } else if (month == 7) {
-
-            } else if (month == 8) {
-
+                dataMonth = {
+                    label: "Data Juli",
+                    data: [<?php totalOneMonthPMB(idPMB(), 7); ?>],
+                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                    borderWidth: 0
+                };
+            } else {
+                dataMonth = {
+                    label: "Data Agustus",
+                    data: [<?php totalOneMonthPMB(idPMB(), 8); ?>],
+                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                    borderWidth: 0
+                };
             }
 
+            dataGabungan = {
+                label: "Data Bulanan",
+                datasets: [dataFull, dataMonth]
+            };
 
+            var chartOptions = {
+                options: {
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 10,
+                            right: 25,
+                            top: 25,
+                            bottom: 0
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'month'
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 6
+                            },
+                            maxBarThickness: 25,
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                min: 0,
+                                max: 15000,
+                                maxTicksLimit: 5,
+                                padding: 10,
+                                // Include a dollar sign in the ticks
+                                callback: function(value, index, values) {
+                                    return '$' + number_format(value);
+                                }
+                            },
+                            gridLines: {
+                                color: "rgb(234, 236, 244)",
+                                zeroLineColor: "rgb(234, 236, 244)",
+                                drawBorder: false,
+                                borderDash: [2],
+                                zeroLineBorderDash: [2]
+                            }
+                        }],
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        titleMarginBottom: 10,
+                        titleFontColor: '#6e707e',
+                        titleFontSize: 14,
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem, chart) {
+                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                            }
+                        }
+                    },
+                }
+            }
 
+            var canvasChartBulanan = document.getElementById("multiBarChart");
+
+            var barChart = new Chart(canvasChartBulanan, {
+                type: 'bar',
+                data: dataGabungan,
+                options: chartOptions
+            });
         }
 
     </script>
