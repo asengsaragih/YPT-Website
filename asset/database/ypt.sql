@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Jan 2020 pada 15.11
+-- Waktu pembuatan: 11 Feb 2020 pada 08.14
 -- Versi server: 10.3.16-MariaDB
 -- Versi PHP: 7.3.6
 
@@ -53,6 +53,7 @@ CREATE TABLE `pmb` (
   `id_pmb` int(10) NOT NULL,
   `tahun_target_pmb` int(4) NOT NULL,
   `tahun_realisasi_pmb` int(4) NOT NULL,
+  `kategori_pmb` int(10) NOT NULL,
   `id_kampus` int(10) NOT NULL,
   `id_target` int(10) NOT NULL,
   `id_realisasi` int(10) NOT NULL
@@ -62,9 +63,10 @@ CREATE TABLE `pmb` (
 -- Dumping data untuk tabel `pmb`
 --
 
-INSERT INTO `pmb` (`id_pmb`, `tahun_target_pmb`, `tahun_realisasi_pmb`, `id_kampus`, `id_target`, `id_realisasi`) VALUES
-(3, 2020, 2019, 1, 31, 30),
-(4, 2021, 2020, 1, 32, 31);
+INSERT INTO `pmb` (`id_pmb`, `tahun_target_pmb`, `tahun_realisasi_pmb`, `kategori_pmb`, `id_kampus`, `id_target`, `id_realisasi`) VALUES
+(8, 2020, 2019, 2, 1, 36, 35),
+(10, 2020, 2019, 1, 1, 38, 37),
+(11, 2022, 2021, 2, 1, 39, 38);
 
 -- --------------------------------------------------------
 
@@ -94,8 +96,15 @@ CREATE TABLE `realisasi` (
 --
 
 INSERT INTO `realisasi` (`id_realisasi`, `tahun_realisasi`, `september_realisasi`, `oktober_realisasi`, `november_realisasi`, `desember_realisasi`, `januari_realisasi`, `februari_realisasi`, `maret_realisasi`, `april_realisasi`, `mei_realisasi`, `juni_realisasi`, `juli_realisasi`, `agustus_realisasi`) VALUES
-(30, 2019, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(31, 2020, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(30, 2019, 10, 5456460, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(31, 2020, 111110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(32, 2019, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(33, 2019, 80, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(34, 2019, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 2019, 365, 400, 325, 952, 100, 285, 352, 105, 800, 980, 650, 750),
+(36, 2055, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(37, 2019, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(38, 2021, 123, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -125,8 +134,15 @@ CREATE TABLE `target` (
 --
 
 INSERT INTO `target` (`id_target`, `tahun_target`, `september_target`, `oktober_target`, `november_target`, `desember_target`, `januari_target`, `februari_target`, `maret_target`, `april_target`, `mei_target`, `juni_target`, `juli_target`, `agustus_target`) VALUES
-(31, 2020, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(32, 2021, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(31, 2020, 0, 0, 650, 78, 958, 0, 0, 0, 0, 0, 0, 0),
+(32, 2021, 10, 1, 0, 1, 0, 0, 20, 0, 0, 0, 0, 0),
+(33, 2020, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(34, 2020, 100, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 2020, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(36, 2020, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 900, 920, 1000),
+(37, 2056, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(38, 2020, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0),
+(39, 2022, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -139,6 +155,15 @@ CREATE TABLE `user` (
   `email_user` varchar(50) NOT NULL,
   `password_user` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`id_user`, `email_user`, `password_user`) VALUES
+(1, 'aldiwahyu.saragih@gmail.com', '9df4006ea99b6b0c24fa027a3a7c04af'),
+(2, 'aldiwahyu.saragih@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b'),
+(3, 'michaelafro04@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b');
 
 --
 -- Indexes for dumped tables
@@ -191,25 +216,25 @@ ALTER TABLE `kampus`
 -- AUTO_INCREMENT untuk tabel `pmb`
 --
 ALTER TABLE `pmb`
-  MODIFY `id_pmb` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pmb` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `realisasi`
 --
 ALTER TABLE `realisasi`
-  MODIFY `id_realisasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_realisasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT untuk tabel `target`
 --
 ALTER TABLE `target`
-  MODIFY `id_target` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_target` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
