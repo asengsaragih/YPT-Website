@@ -276,14 +276,10 @@
                     agustus_target = $agustus WHERE id_target = $id_target");
 
             if ($qry) {
-                if ($id_kampus == 1) {
-                    toastMessageIntent("pmbTelkom.php", "Berhasil Memperbaruhi Data");
-                } elseif ($id_kampus == 2) {
-                    toastMessageIntent("pmbITTP.php", "Berhasil Memperbaruhi Data");
-                } elseif ($id_kampus == 3) {
-                    toastMessageIntent("pmbAkatel.php", "Berhasil Memperbaruhi Data");
-                } else {
-                    toastMessageIntent("pmbITTS.php", "Berhasil Memperbaruhi Data");
+                $qry_inten = mysqli_query($conn, "SELECT id_pmb from pmb WHERE id_target = '$id_target' AND id_kampus = '$id_kampus' LIMIT 1");
+                while ($key = mysqli_fetch_assoc($qry_inten)) {
+                    $id = "pmbData.php?id_pmb=".$key['id_pmb'];
+                    echo "<script>window.location.href = '$id'</script>";
                 }
             } else {
                 toastMessage("Gagal Memperbaruhi Data");
@@ -324,14 +320,10 @@
                     agustus_realisasi = $agustus WHERE id_realisasi = $id_realisasi");
             
             if ($qry) {
-                if ($id_kampus == 1) {
-                    toastMessageIntent("pmbTelkom.php", "Berhasil Memperbaruhi Data");
-                } elseif ($id_kampus == 2) {
-                    toastMessageIntent("pmbITTP.php", "Berhasil Memperbaruhi Data");
-                } elseif ($id_kampus == 3) {
-                    toastMessageIntent("pmbAkatel.php", "Berhasil Memperbaruhi Data");
-                } else {
-                    toastMessageIntent("pmbITTS.php", "Berhasil Memperbaruhi Data");
+                $qry_inten = mysqli_query($conn, "SELECT id_pmb from pmb WHERE id_realisasi = '$id_realisasi' AND id_kampus = '$id_kampus' LIMIT 1");
+                while ($key = mysqli_fetch_assoc($qry_inten)) {
+                    $id = "pmbData.php?id_pmb=".$key['id_pmb'];
+                    echo "<script>window.location.href = '$id'</script>";
                 }
             } else {
                 toastMessage("Gagal Memperbaruhi Data");

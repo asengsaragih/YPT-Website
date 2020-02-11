@@ -91,7 +91,8 @@
         $check = mysqli_num_rows($qry);
 
         if ($check > 0) {
-            toastMessageIntent("laporanPMB.php", "Data Sudah Ada");
+            toastMessage("Data Sudah Ada");
+            return;
         } else {
             insertPMB($year, $id_campus, $kategory);
         }
