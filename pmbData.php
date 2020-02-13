@@ -20,7 +20,7 @@
     <!-- Content Row -->
     <div class="row">
 
-        <div class="col-xl-8 col-lg-7">
+        <div class="col-xl-12 col-lg-7">
 
             <!-- Area Chart -->
             <div class="card shadow mb-4">
@@ -36,33 +36,65 @@
 
         </div>
 
-        <div class="col-xl-4 col-lg-5">
+        <div class="col-xl-6 col-lg-5">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Chart Bulanan</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Chart Bulanan Realisasi</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="form-group">
                         <h6>Pilih Bulan : </h6>
-                        <select id="monthChart" class="custom-select custom-select-sm form-control form-control-sm" required>
-                            <option value="9" <?php getCurrentMonth(9); ?> >September</option>
-                            <option value="10" <?php getCurrentMonth(10); ?> >Oktober</option>
-                            <option value="11" <?php getCurrentMonth(11); ?> >November</option>
-                            <option value="12" <?php getCurrentMonth(12); ?> >Desember</option>
-                            <option value="1" <?php getCurrentMonth(1); ?> >Januari</option>
-                            <option value="2" <?php getCurrentMonth(2); ?> >Februari</option>
-                            <option value="3" <?php getCurrentMonth(3); ?> >Maret</option>
-                            <option value="4" <?php getCurrentMonth(4); ?> >April</option>
-                            <option value="5" <?php getCurrentMonth(5); ?> >Mei</option>
-                            <option value="6" <?php getCurrentMonth(6); ?> >Juni</option>
-                            <option value="7" <?php getCurrentMonth(7); ?> >Juli</option>
-                            <option value="8" <?php getCurrentMonth(8); ?> >Agustus</option>
+                        <select id="monthChartRealisasi" class="custom-select custom-select-sm form-control form-control-sm" required onchange="showRealisasiMonthChart()">
+                            <option value="9">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
+                            <option value="1">Januari</option>
+                            <option value="2">Februari</option>
+                            <option value="3">Maret</option>
+                            <option value="4">April</option>
+                            <option value="5">Mei</option>
+                            <option value="6">Juni</option>
+                            <option value="7">Juli</option>
+                            <option value="8">Agustus</option>
                         </select>
                     </div>
                     <div class="chart-bar pt-4">
-                        <canvas id="multiBarChart"></canvas>
+                        <canvas id="multiBarChartRealisasi"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Chart Bulanan Target</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <h6>Pilih Bulan : </h6>
+                        <select id="monthChartTarget" class="custom-select custom-select-sm form-control form-control-sm" required onchange="showTargetMonthChart()">
+                            <option value="9">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
+                            <option value="1">Januari</option>
+                            <option value="2">Februari</option>
+                            <option value="3">Maret</option>
+                            <option value="4">April</option>
+                            <option value="5">Mei</option>
+                            <option value="6">Juni</option>
+                            <option value="7">Juli</option>
+                            <option value="8">Agustus</option>
+                        </select>
+                    </div>
+                    <div class="chart-bar pt-4">
+                        <canvas id="multiBarChartTarget"></canvas>
                     </div>
                 </div>
             </div>
@@ -70,241 +102,301 @@
     </div>
 
     <script>
-        var id = document.getElementById("monthChart");
-        id.addEventListener("click", function () {
-            if (id.value === "9") {
-                showChart(9);
-            }
+        var chartOptionsBar;
 
-            if (id.value === "10") {
-                showChart(10);
+        chartOptionsBar = {
+            options: {
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 10,
+                        right: 25,
+                        top: 25,
+                        bottom: 0
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'month'
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 6
+                        },
+                        maxBarThickness: 25,
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 15000,
+                            maxTicksLimit: 5,
+                            padding: 10,
+                            // Include a dollar sign in the ticks
+                            callback: function(value, index, values) {
+                                return '$' + number_format(value);
+                            }
+                        },
+                        gridLines: {
+                            color: "rgb(234, 236, 244)",
+                            zeroLineColor: "rgb(234, 236, 244)",
+                            drawBorder: false,
+                            borderDash: [2],
+                            zeroLineBorderDash: [2]
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    titleMarginBottom: 10,
+                    titleFontColor: '#6e707e',
+                    titleFontSize: 14,
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                    callbacks: {
+                        label: function(tooltipItem, chart) {
+                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                            return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                        }
+                    }
+                },
             }
+        };
 
-            if (id.value === "11") {
-                showChart(11);
-            }
+        var canvasChartBulananTarget = document.getElementById("multiBarChartTarget");
 
-            if (id.value === "12") {
-                showChart(12);
-            }
-
-            if (id.value === "1") {
-                showChart(1);
-            }
-
-            if (id.value === "2") {
-                showChart(2);
-            }
-
-            if (id.value === "3") {
-                showChart(3);
-            }
-
-            if (id.value === "4") {
-                showChart(4);
-            }
-
-            if (id.value === "5") {
-                showChart(5);
-            }
-
-            if (id.value === "6") {
-                showChart(6);
-            }
-            
-            if (id.value === "7") {
-                showChart(7);
-            }
-            
-            if (id.value === "8") {
-                showChart(8);
-            }
-
+        var barChartTarget = new Chart(canvasChartBulananTarget, {
+            type: 'bar',
+            data: {
+                label: "Data Gabungan",
+                datasets: [
+                    {
+                        label: "Data Tahunan",
+                        data: [<?php totalfullMonthTargetPMB(idPMB()) ?>],
+                        backgroundColor: 'rgba(99, 132, 0, 0.6)',
+                        borderWidth: 0
+                    },
+                    {
+                        label: "Data Bulanan",
+                        data: [<?php totalOneMonthTargetPMB(idPMB(), 9);?>],
+                        backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                        borderWidth: 0
+                    }
+                ]
+            },
+            options: chartOptionsBar
         });
-        
-        function showChart(month) {
 
-            Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-            Chart.defaults.global.defaultFontColor = '#858796';
+        var canvasChartBulanan = document.getElementById("multiBarChartRealisasi");
 
-            var dataMonth;
-            var dataFull;
-            var dataGabungan;
+        var barChartRealisasi = new Chart(canvasChartBulanan, {
+            type: 'bar',
+            data: {
+                label: "Data Gabungan",
+                datasets: [
+                    {
+                        label: "Data Tahunan",
+                        data: [<?php totalfullMonthRealisasiPMB(idPMB()) ?>],
+                        backgroundColor: 'rgba(99, 132, 0, 0.6)',
+                        borderWidth: 0
+                    },
+                    {
+                        label: "Data Bulanan",
+                        data: [<?php totalOneMonthRealisasiPMB(idPMB(), 9);?>],
+                        backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                        borderWidth: 0
+                    }
+                ]
+            },
+            options: chartOptionsBar
+        });
 
-            dataFull = {
-                label: "Data Tahunan",
-                data: [<?php totalfullMonthPMB(idPMB()) ?>],
-                backgroundColor: 'rgba(99, 132, 0, 0.6)',
-                borderWidth: 0
-            };
+        function showRealisasiMonthChart() {
+            var valueNilaiRealisasiBulanan = document.getElementById('monthChartRealisasi').value;
+            var valueRealisasi;
 
-            if (month == 9) {
-                dataMonth = {
-                    label: "Data September",
-                    data: [<?php totalOneMonthPMB(idPMB(), 9); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
-            } else if (month == 10) {
-                dataMonth = {
-                    label: "Data Oktober",
-                    data: [<?php totalOneMonthPMB(idPMB(), 10); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
-            } else if (month == 11) {
-                dataMonth = {
-                    label: "Data November",
-                    data: [<?php totalOneMonthPMB(idPMB(), 11); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
-            } else if (month == 12) {
-                dataMonth = {
-                    label: "Data Desember",
-                    data: [<?php totalOneMonthPMB(idPMB(), 12); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
-            } else if (month == 1) {
-                dataMonth = {
-                    label: "Data Januari",
-                    data: [<?php totalOneMonthPMB(idPMB(), 1); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
-            } else if (month == 2) {
-                dataMonth = {
-                    label: "Data Februari",
-                    data: [<?php totalOneMonthPMB(idPMB(), 2); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
-            } else if (month == 3) {
-                dataMonth = {
-                    label: "Data Maret",
-                    data: [<?php totalOneMonthPMB(idPMB(), 3); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
-            } else if (month == 4) {
-                dataMonth = {
-                    label: "Data April",
-                    data: [<?php totalOneMonthPMB(idPMB(), 4); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
-            } else if (month == 5) {
-                dataMonth = {
-                    label: "Data Mei",
-                    data: [<?php totalOneMonthPMB(idPMB(), 5); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
-            } else if (month == 6) {
-                dataMonth = {
-                    label: "Data Juni",
-                    data: [<?php totalOneMonthPMB(idPMB(), 6); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
-            } else if (month == 7) {
-                dataMonth = {
-                    label: "Data Juli",
-                    data: [<?php totalOneMonthPMB(idPMB(), 7); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
-            } else {
-                dataMonth = {
-                    label: "Data Agustus",
-                    data: [<?php totalOneMonthPMB(idPMB(), 8); ?>],
-                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                    borderWidth: 0
-                };
+            var sepRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 9);?>;
+            var oktRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 10);?>;
+            var novRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 11);?>;
+            var desRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 12);?>;
+            var janRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 1);?>;
+            var febRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 2);?>;
+            var marRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 3);?>;
+            var aprRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 4);?>;
+            var meiRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 5);?>;
+            var junRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 6);?>;
+            var julRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 7);?>;
+            var aguRealisasi = <?php totalOneMonthRealisasiPMB(idPMB(), 8);?>;
+
+            if (valueNilaiRealisasiBulanan == 1) {
+                valueRealisasi = janRealisasi;
             }
 
-            dataGabungan = {
-                label: "Data Bulanan",
-                datasets: [dataFull, dataMonth]
-            };
-
-            var chartOptions = {
-                options: {
-                    maintainAspectRatio: false,
-                    layout: {
-                        padding: {
-                            left: 10,
-                            right: 25,
-                            top: 25,
-                            bottom: 0
-                        }
-                    },
-                    scales: {
-                        xAxes: [{
-                            time: {
-                                unit: 'month'
-                            },
-                            gridLines: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                maxTicksLimit: 6
-                            },
-                            maxBarThickness: 25,
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                min: 0,
-                                max: 15000,
-                                maxTicksLimit: 5,
-                                padding: 10,
-                                // Include a dollar sign in the ticks
-                                callback: function(value, index, values) {
-                                    return '$' + number_format(value);
-                                }
-                            },
-                            gridLines: {
-                                color: "rgb(234, 236, 244)",
-                                zeroLineColor: "rgb(234, 236, 244)",
-                                drawBorder: false,
-                                borderDash: [2],
-                                zeroLineBorderDash: [2]
-                            }
-                        }],
-                    },
-                    legend: {
-                        display: false
-                    },
-                    tooltips: {
-                        titleMarginBottom: 10,
-                        titleFontColor: '#6e707e',
-                        titleFontSize: 14,
-                        backgroundColor: "rgb(255,255,255)",
-                        bodyFontColor: "#858796",
-                        borderColor: '#dddfeb',
-                        borderWidth: 1,
-                        xPadding: 15,
-                        yPadding: 15,
-                        displayColors: false,
-                        caretPadding: 10,
-                        callbacks: {
-                            label: function(tooltipItem, chart) {
-                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-                            }
-                        }
-                    },
-                }
+            if (valueNilaiRealisasiBulanan == 2) {
+                valueRealisasi = febRealisasi;
             }
 
-            var canvasChartBulanan = document.getElementById("multiBarChart");
+            if (valueNilaiRealisasiBulanan == 3) {
+                valueRealisasi = marRealisasi;
+            }
 
-            var barChart = new Chart(canvasChartBulanan, {
+            if (valueNilaiRealisasiBulanan == 4) {
+                valueRealisasi = aprRealisasi;
+            }
+
+            if (valueNilaiRealisasiBulanan == 5) {
+                valueRealisasi = meiRealisasi;
+            }
+
+            if (valueNilaiRealisasiBulanan == 6) {
+                valueRealisasi = junRealisasi;
+            }
+
+            if (valueNilaiRealisasiBulanan == 7) {
+                valueRealisasi = julRealisasi;
+            }
+
+            if (valueNilaiRealisasiBulanan == 8) {
+                valueRealisasi = aguRealisasi;
+            }
+
+            if (valueNilaiRealisasiBulanan == 9) {
+                valueRealisasi = sepRealisasi;
+            }
+
+            if (valueNilaiRealisasiBulanan == 10) {
+                valueRealisasi = oktRealisasi;
+            }
+
+            if (valueNilaiRealisasiBulanan == 11) {
+                valueRealisasi = novRealisasi;
+            }
+
+            if (valueNilaiRealisasiBulanan == 12){
+                valueRealisasi = desRealisasi;
+            }
+
+            barChartRealisasi.destroy();
+            barChartRealisasi = new Chart(canvasChartBulanan, {
                 type: 'bar',
-                data: dataGabungan,
-                options: chartOptions
+                data: {
+                    label: "Data Gabungan",
+                    datasets: [
+                        {
+                            label: "Data Tahunan",
+                            data: [<?php totalfullMonthRealisasiPMB(idPMB()) ?>],
+                            backgroundColor: 'rgba(99, 132, 0, 0.6)',
+                            borderWidth: 0
+                        },
+                        {
+                            label: "Data Bulanan",
+                            data: [valueRealisasi],
+                            backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                            borderWidth: 0
+                        }
+                    ]
+                },
+                options: chartOptionsBar
+            });
+        }
+
+        function showTargetMonthChart() {
+            var valueNilaiTargetBulanan = document.getElementById('monthChartTarget').value;
+            var valueTarget;
+
+            var sepTarget = <?php totalOneMonthTargetPMB(idPMB(), 9);?>;
+            var oktTarget = <?php totalOneMonthTargetPMB(idPMB(), 10);?>;
+            var novTarget = <?php totalOneMonthTargetPMB(idPMB(), 11);?>;
+            var desTarget = <?php totalOneMonthTargetPMB(idPMB(), 12);?>;
+            var janTarget = <?php totalOneMonthTargetPMB(idPMB(), 1);?>;
+            var febTarget = <?php totalOneMonthTargetPMB(idPMB(), 2);?>;
+            var marTarget = <?php totalOneMonthTargetPMB(idPMB(), 3);?>;
+            var aprTarget = <?php totalOneMonthTargetPMB(idPMB(), 4);?>;
+            var meiTarget = <?php totalOneMonthTargetPMB(idPMB(), 5);?>;
+            var junTarget = <?php totalOneMonthTargetPMB(idPMB(), 6);?>;
+            var julTarget = <?php totalOneMonthTargetPMB(idPMB(), 7);?>;
+            var aguTarget = <?php totalOneMonthTargetPMB(idPMB(), 8);?>;
+
+            if (valueNilaiTargetBulanan == 1) {
+                valueTarget = janTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 2) {
+                valueTarget = febTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 3) {
+                valueTarget = marTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 4) {
+                valueTarget = aprTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 5) {
+                valueTarget = meiTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 6) {
+                valueTarget = junTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 7) {
+                valueTarget = julTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 8) {
+                valueTarget = aguTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 9) {
+                valueTarget = sepTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 10) {
+                valueTarget = oktTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 11) {
+                valueTarget = novTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 12){
+                valueTarget = desTarget;
+            }
+
+            barChartTarget.destroy();
+            barChartTarget = new Chart(canvasChartBulananTarget, {
+                type: 'bar',
+                data: {
+                    label: "Data Gabungan",
+                    datasets: [
+                        {
+                            label: "Data Tahunan",
+                            data: [<?php totalfullMonthTargetPMB(idPMB()) ?>],
+                            backgroundColor: 'rgba(99, 132, 0, 0.6)',
+                            borderWidth: 0
+                        },
+                        {
+                            label: "Data Bulanan",
+                            data: [valueTarget],
+                            backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                            borderWidth: 0
+                        }
+                    ]
+                },
+                options: chartOptionsBar
             });
         }
 
@@ -442,45 +534,72 @@
 <?php
     include ("main/footer.php");
 
-    function dataPMBRealisasiJSON(int $id) {
+    function totalOneMonthTargetPMB(int $id, String $month) {
         $conn = conn();
-        $qry = mysqli_query($conn, "SELECT * FROM pmb WHERE id_pmb = '$id'");
-        while ($key = mysqli_fetch_array($qry)) {
-            $id_realisasi = $key['id_realisasi'];
+        $qry_intro = mysqli_query($conn, "SELECT * FROM pmb WHERE id_pmb = '$id'");
+        while ($key = mysqli_fetch_array($qry_intro)) {
+            $id_target = $key['id_target'];
+            $qry = null;
 
-            $qry_realisasi = mysqli_query($conn, "SELECT * FROM realisasi WHERE id_realisasi='$id_realisasi'");
-            while ($key_realisasi = mysqli_fetch_array($qry_realisasi)) {
-                $september_realisasi = $key_realisasi['september_realisasi'];
-                $oktober_realisasi = $key_realisasi['oktober_realisasi'];
-                $november_realisasi = $key_realisasi['november_realisasi'];
-                $desember_realisasi = $key_realisasi['desember_realisasi'];
-                $januari_realisasi = $key_realisasi['januari_realisasi'];
-                $februari_realisasi = $key_realisasi['februari_realisasi'];
-                $maret_realisasi = $key_realisasi['maret_realisasi'];
-                $april_realisasi = $key_realisasi['april_realisasi'];
-                $mei_realisasi = $key_realisasi['mei_realisasi'];
-                $juni_realisasi = $key_realisasi['juni_realisasi'];
-                $juli_realisasi = $key_realisasi['juli_realisasi'];
-                $agustus_realisasi = $key_realisasi['agustus_realisasi'];
+            if ($month == 1) {
+                $qry = mysqli_query($conn, "SELECT januari_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            } elseif ($month == 2) {
+                $qry = mysqli_query($conn, "SELECT februari_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            } elseif ($month == 3) {
+                $qry = mysqli_query($conn, "SELECT maret_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            } elseif ($month == 4) {
+                $qry = mysqli_query($conn, "SELECT april_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            } elseif ($month == 5) {
+                $qry = mysqli_query($conn, "SELECT mei_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            } elseif ($month == 6) {
+                $qry = mysqli_query($conn, "SELECT juni_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            } elseif ($month == 7) {
+                $qry = mysqli_query($conn, "SELECT juli_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            } elseif ($month == 8) {
+                $qry = mysqli_query($conn, "SELECT agustus_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            } elseif ($month == 9) {
+                $qry = mysqli_query($conn, "SELECT september_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            } elseif ($month == 10) {
+                $qry = mysqli_query($conn, "SELECT oktober_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            } elseif ($month == 11) {
+                $qry = mysqli_query($conn, "SELECT november_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            } elseif ($month == 12) {
+                $qry = mysqli_query($conn, "SELECT desember_target AS TOTAL FROM target WHERE id_target = '$id_target' LIMIT 1");
+            }
 
-                echo
-                    $september_realisasi.", ".
-                    $oktober_realisasi.", ".
-                    $november_realisasi.", ".
-                    $desember_realisasi.", ".
-                    $januari_realisasi.", ".
-                    $februari_realisasi.", ".
-                    $maret_realisasi.", ".
-                    $april_realisasi.", ".
-                    $mei_realisasi.", ".
-                    $juni_realisasi.", ".
-                    $juli_realisasi.", ".
-                    $agustus_realisasi;
+            while ($key = mysqli_fetch_assoc($qry)) {
+                echo $key['TOTAL'];
             }
         }
     }
 
-    function totalOneMonthPMB(int $id, int $month) {
+    function totalfullMonthTargetPMB(int $id) {
+        $conn = conn();
+        $qry = mysqli_query($conn, "SELECT * FROM pmb WHERE id_pmb = '$id'");
+        while ($key = mysqli_fetch_array($qry)) {
+            $id_target = $key['id_target'];
+
+            $qry_target = mysqli_query($conn, "SELECT * FROM target WHERE id_target = '$id_target'");
+            while ($key_target = mysqli_fetch_array($qry_target)) {
+                $total = $key_target['september_target'] +
+                    $key_target['oktober_target'] +
+                    $key_target['november_target'] +
+                    $key_target['desember_target'] +
+                    $key_target['januari_target'] +
+                    $key_target['februari_target'] +
+                    $key_target['maret_target'] +
+                    $key_target['april_target'] +
+                    $key_target['mei_target'] +
+                    $key_target['juni_target'] +
+                    $key_target['juli_target'] +
+                    $key_target['agustus_target'];
+
+                echo $total;
+            }
+        }
+    }
+
+    function totalOneMonthRealisasiPMB(int $id, String $month) {
         $conn = conn();
         $qry_intro = mysqli_query($conn, "SELECT * FROM pmb WHERE id_pmb = '$id'");
         while ($key = mysqli_fetch_array($qry_intro)) {
@@ -519,7 +638,7 @@
         }
     }
 
-    function totalfullMonthPMB(int $id) {
+    function totalfullMonthRealisasiPMB(int $id) {
         $conn = conn();
         $qry = mysqli_query($conn, "SELECT * FROM pmb WHERE id_pmb = '$id'");
         while ($key = mysqli_fetch_array($qry)) {
@@ -541,6 +660,44 @@
                     $key_realisasi['agustus_realisasi'];
 
                 echo $total;
+            }
+        }
+    }
+
+    function dataPMBRealisasiJSON(int $id) {
+        $conn = conn();
+        $qry = mysqli_query($conn, "SELECT * FROM pmb WHERE id_pmb = '$id'");
+        while ($key = mysqli_fetch_array($qry)) {
+            $id_realisasi = $key['id_realisasi'];
+
+            $qry_realisasi = mysqli_query($conn, "SELECT * FROM realisasi WHERE id_realisasi='$id_realisasi'");
+            while ($key_realisasi = mysqli_fetch_array($qry_realisasi)) {
+                $september_realisasi = $key_realisasi['september_realisasi'];
+                $oktober_realisasi = $key_realisasi['oktober_realisasi'];
+                $november_realisasi = $key_realisasi['november_realisasi'];
+                $desember_realisasi = $key_realisasi['desember_realisasi'];
+                $januari_realisasi = $key_realisasi['januari_realisasi'];
+                $februari_realisasi = $key_realisasi['februari_realisasi'];
+                $maret_realisasi = $key_realisasi['maret_realisasi'];
+                $april_realisasi = $key_realisasi['april_realisasi'];
+                $mei_realisasi = $key_realisasi['mei_realisasi'];
+                $juni_realisasi = $key_realisasi['juni_realisasi'];
+                $juli_realisasi = $key_realisasi['juli_realisasi'];
+                $agustus_realisasi = $key_realisasi['agustus_realisasi'];
+
+                echo
+                    $september_realisasi.", ".
+                    $oktober_realisasi.", ".
+                    $november_realisasi.", ".
+                    $desember_realisasi.", ".
+                    $januari_realisasi.", ".
+                    $februari_realisasi.", ".
+                    $maret_realisasi.", ".
+                    $april_realisasi.", ".
+                    $mei_realisasi.", ".
+                    $juni_realisasi.", ".
+                    $juli_realisasi.", ".
+                    $agustus_realisasi;
             }
         }
     }
