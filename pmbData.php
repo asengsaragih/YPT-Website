@@ -1,7 +1,5 @@
 <?php
     include ("main/side.php");
-    require "asset/controller/connection.php";
-    require "asset/controller/function.php";
 ?>
     <?php showTitle(idPMB()); ?>
     <div class="card shadow mb-4">
@@ -772,7 +770,7 @@
                         <th>Jun $tahun_targer_substr</th>
                         <th>Jul $tahun_targer_substr</th>
                         <th>Agu $tahun_targer_substr</th>
-                        <th>Action</th>
+                        <th class='USER-ROLE-CSS'>Action</th>
                     </tr>
                 </thead>
             ";
@@ -807,7 +805,7 @@
                 echo "<td>".$key_target['juni_target']."</td>";
                 echo "<td>".$key_target['juli_target']."</td>";
                 echo "<td>".$key_target['agustus_target']."</td>";
-                echo "<td>
+                echo "<td class='USER-ROLE-CSS'>
                         <a href='editPMB.php?id_target=$id_target' class='btn btn-warning btn-icon-split'>
 	                    	<span class='icon text-white-50'>
 	                      		<i class='fas fa-edit'></i>
@@ -847,7 +845,7 @@
                 echo "<td>".$key_realisasi['juni_realisasi']."</td>";
                 echo "<td>".$key_realisasi['juli_realisasi']."</td>";
                 echo "<td>".$key_realisasi['agustus_realisasi']."</td>";
-                echo "<td>
+                echo "<td class='USER-ROLE-CSS'>
                         <a href='editPMB.php?id_realisasi=$id_realisasi' class='btn btn-warning btn-icon-split'>
 	                    	<span class='icon text-white-50'>
 	                      		<i class='fas fa-edit'></i>

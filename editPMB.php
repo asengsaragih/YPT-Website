@@ -1,7 +1,5 @@
 <?php
     include ("main/side.php");
-    require "asset/controller/connection.php";
-    require "asset/controller/function.php";
     $conn = conn();
 ?>
 <h1 class="h3 mb-2 text-gray-800">Edit PMB</h1><br />

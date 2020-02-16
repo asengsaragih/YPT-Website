@@ -1,7 +1,5 @@
 <?php
     include ("main/side.php");
-    require "asset/controller/connection.php";
-    require "asset/controller/function.php";
 ?>
  <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Add User</h1><br />
@@ -26,6 +24,12 @@
                         <input type="password" name="rePassword" class="form-control form-control-user" id="exampleInputPassword" placeholder="Re-type Password" required>
                     </div>
                     <div class="form-group">
+                        <h6>Insert Role : </h6>
+                        <select name="role" class="custom-select custom-select-sm form-control form-control-sm" required>
+                            <?php showRole(); ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <input style="background-color: blueviolet; color: white; font-weight: bold;" type="submit" name="singUp" class="form-control form-control-user" value="Add User">
                     </div>
                   </form>
@@ -38,6 +42,7 @@
         $conn = conn();
 
         $email = $_POST['email'];
+        $id_role = $_POST['role'];
         $password = md5($_POST['password']);
         $rePassword = md5($_POST['rePassword']);
 
@@ -46,11 +51,21 @@
             return;
         }
 
-        insertUser($email, $password);
+        insertUser($email, $password, $id_role);
 
     }
 
-    function insertUser(String $email, String $password) {
+    function showRole() {
+        $conn = conn();
+        $qry = mysqli_query($conn, "SELECT * FROM role");
+        while ($key = mysqli_fetch_array($qry)) {
+            ?>
+            <option value="<?php echo $key['id_role']; ?>"><?php echo $key['nama_role']; ?></option>
+            <?php
+        }
+    }
+
+    function insertUser(String $email, String $password, int $role) {
         $conn = conn();
         $sql = "SELECT * FROM user WHERE email_user = '$email'";
         $qry = mysqli_query($conn, $sql);
@@ -61,7 +76,7 @@
             return;
         }
 
-        $qryInsert = mysqli_query($conn, "INSERT INTO user (id_user, email_user, password_user) VALUES ('', '$email', '$password')");
+        $qryInsert = mysqli_query($conn, "INSERT INTO user (id_user, email_user, password_user, id_role) VALUES ('', '$email', '$password', '$role')");
         if ($qryInsert) {
             toastMessage("User Berhasil Ditambahkan");
         } else {

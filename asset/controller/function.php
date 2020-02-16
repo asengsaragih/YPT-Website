@@ -346,4 +346,20 @@
     function toastMessageIntent(String $context, String $message) {
         echo "<script>alert('$message'); window.location.href='$context';</script>";
     }
+
+    function USER_ROLE(string $email) {
+        $conn = conn();
+        $qry = mysqli_query($conn, "SELECT id_role FROM user WHERE email_user = '$email'");
+        while ($key = mysqli_fetch_assoc($qry)) {
+            return $key['id_role'];
+        }
+    }
+
+    function roleTitle(int $id_role) {
+        $conn = conn();
+        $qry = mysqli_query($conn, "SELECT nama_role FROM role WHERE id_role = '$id_role'");
+        while ($key = mysqli_fetch_array($qry)) {
+            echo $key['nama_role'];
+        }
+    }
 ?>

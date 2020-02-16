@@ -39,8 +39,8 @@
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
                             <div class="row">
-                                <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                                <div class="col-lg-6">
+<!--                                <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>-->
+                                <div class="col-lg-12">
                                     <div class="p-5">
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
@@ -108,12 +108,12 @@
             if ($check > 0) {
                 session_start();
                 $_SESSION['email'] = $_POST['email'];
-                toastMessageIntent("index.php", "Berhasil Login");
+                echo "<script>window.location.href='index.php';</script>";
             } else {
                 toastMessageIntent("login.php", "Username Atau Password Salah");
             }
         }
     } else {
-        header("location: index.php");
+        header("location: indexExample.php");
     }
 ?>

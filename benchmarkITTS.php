@@ -1,7 +1,5 @@
 <?php
 include ("main/side.php");
-require "asset/controller/connection.php";
-require "asset/controller/function.php";
 ?>
 
 <!-- Collapsable Card Example -->

@@ -17,60 +17,65 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Nama</th>
-                      <th>username</th>
-                      <th>group</th>
-                      <th>action</th>
-                     
+                      <th>E-mail</th>
+                      <th>Role</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Taufik Rahmat Kurniawan</td>
-                      <td>taurahkur</td>
-                      <td>superadmin</td>
-                      <td>
-                      	<a href="#" class="btn btn-warning btn-icon-split">
-	                    	<span class="icon text-white-50">
-	                      		<i class="fas fa-edit"></i>
-	                    	</span>
-	                    <span class="text">Edit</span>
-                  		</a>
-                  		<a href="#" class="btn btn-danger btn-icon-split">
-	                    	<span class="icon text-white-50">
-	                      		<i class="fas fa-trash"></i>
-	                    	</span>
-	                    <span class="text">Hapus</span>
-                  		</a>
-              		  </td>
-                      
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Nur Atnan</td>
-                      <td>atnan</td>
-                      <td>admin</td>
-                      <td><a href="#" class="btn btn-warning btn-icon-split">
-	                    	<span class="icon text-white-50">
-	                      		<i class="fas fa-edit"></i>
-	                    	</span>
-	                    <span class="text">Edit</span>
-                  		</a>
-                  		<a href="#" class="btn btn-danger btn-icon-split">
-	                    	<span class="icon text-white-50">
-	                      		<i class="fas fa-trash"></i>
-	                    	</span>
-	                    <span class="text">Hapus</span>
-                  		</a></td>
-                      
-                    </tr>
+                      <?php showDataUser(); ?>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
 
+
 <?php
 	include ("main/footer.php");
+	function showDataUser() {
+	    $conn = conn();
+	    $qry = mysqli_query($conn, "SELECT * FROM user");
+	    $i = 1;
+        while ($key = mysqli_fetch_array($qry)) {
+            ?>
+            <tr>
+                <td> <?php echo $i++; ?></td>
+                <input type="hidden" name="email" value="<?php echo $key['email_user']; ?>">
+                <td><?php echo $key['email_user']?></td>
+                <td><?php echo roleTitle($key['id_role'])?></td>
+                <td>
+                    <form method="POST">
+                        <input name="id_user" type="hidden" value="<?php echo $key['id_user']; ?>">
+                        <i class="fas fa-trash">
+                            <input onclick="validateDelete()" type="submit" name="deleteUser" style="padding: 10px;" class="btn btn-danger btn-icon-split" value="Delete User">
+                        </i>
+                    </form>
+                </td>
+            </tr>
+            <?php
+        }
+    }
+
+    function deleteUser(int $id_user) {
+	    $conn = conn();
+	    $qry = mysqli_query($conn, "DELETE FROM user WHERE id_user = '$id_user'");
+	    if (!$qry) {
+	        echo "<script>alert('gagal menghapus user')</script>";
+        }
+    }
 ?>
+
+<script>
+    function validateDelete() {
+        var r = confirm("Hapus User?");
+        if (r == true) {
+            <?php
+                if (isset($_POST['deleteUser'])) {
+                    $id_user = $_POST['id_user'];
+                    deleteUser($id_user);
+                }
+            ?>
+        }
+    }
+</script>

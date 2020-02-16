@@ -1,13 +1,11 @@
 <?php
     include ("main/side.php");
-    require "asset/controller/connection.php";
-    require "asset/controller/function.php";
 ?>
  <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Input PMB</h1><br />
+          <h1 class="h3 mb-2 text-gray-800">PMB Data</h1><br />
 
           <!-- DataTales Example -->
-          <div class="card shadow mb-4">
+          <div class="card shadow mb-4 USER-ROLE-CSS">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Input Data PMB</h6>
             </div>
@@ -61,7 +59,7 @@
                       <th>Tahun Target</th>
                       <th>Tahun Realisasi</th>
                       <th>Kategori</th>
-                      <th>Action</th>
+                      <th class="USER-ROLE-CSS">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -173,7 +171,7 @@
                             echo "Registrasi";
                         }
                         ?></td>
-                    <td>
+                    <td class="USER-ROLE-CSS">
                         <form class="user" method="POST">
                             <input style="display: none;" type="number" value="<?php echo $key['id_pmb']; ?>" name="id_pmb">
                             <i class="fas fa-trash">
