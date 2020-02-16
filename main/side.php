@@ -111,9 +111,9 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Kampus:</h6>
                     <a class="collapse-item" href="benchmarkTelkom.php">Tel-u</a>
-                    <a class="collapse-item" href="#">ITTP</a>
-                    <a class="collapse-item" href="#">Akatel</a>
-                    <a class="collapse-item" href="#">ITTS</a>
+                    <a class="collapse-item" href="benchmarkITTP.php">ITTP</a>
+                    <a class="collapse-item" href="benchmarkAkatel.php">Akatel</a>
+                    <a class="collapse-item" href="benchmarkITTS.php">ITTS</a>
                 </div>
             </div>
         </li>

@@ -8,7 +8,7 @@ require "asset/controller/function.php";
 <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
     <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-        <h6 class="m-0 font-weight-bold text-primary">Benchmark Data Telkom University</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Benchmark Data ITTS</h6>
     </a>
     <!-- Card Content - Collapse -->
     <div class="collapse show" id="collapseCardExample">
@@ -17,13 +17,13 @@ require "asset/controller/function.php";
                 <div class="form-group">
                     <h6>Data PMB 1</h6>
                     <select name="data_one" class="custom-select custom-select-sm form-control form-control-sm">
-                        <?php getDataPMBKampus(1); ?>
+                        <?php getDataPMBKampus(4); ?>
                     </select>
                 </div>
                 <div class="form-group">
                     <h6>Data PMB 2</h6>
                     <select name="data_two" class="custom-select custom-select-sm form-control form-control-sm">
-                        <?php getDataPMBKampus(1); ?>
+                        <?php getDataPMBKampus(4); ?>
                     </select>
                 </div>
                 <div class="form-group">
