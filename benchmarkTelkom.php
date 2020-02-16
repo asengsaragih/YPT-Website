@@ -38,7 +38,7 @@ require "asset/controller/function.php";
     <div class="col-xl-12 col-lg-7">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Data 1</h6>
+                <h6 class="m-0 font-weight-bold text-primary benchmarkTitleOne">Data 1</h6>
             </div>
             <div class="card-body">
                 <div class="chart-area">
@@ -52,7 +52,7 @@ require "asset/controller/function.php";
     <div class="col-xl-12 col-lg-7">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Data 2</h6>
+                <h6 class="m-0 font-weight-bold text-primary benchmarkTitleTwo">Data 2</h6>
             </div>
             <div class="card-body">
                 <div class="chart-area">
@@ -89,11 +89,16 @@ if (isset($_GET['addData'])) {
     $dataTwo = $_GET['data_two'];
     ?>
     <script>
+        $(document).ready(function() {
+            $(".benchmarkTitleOne").text("<?php getTitleBenchmark($dataOne); ?>");
+            $(".benchmarkTitleTwo").text("<?php getTitleBenchmark($dataTwo); ?>");
+        });
+    </script>
+    <script>
         var canvasOne = document.getElementById("bencmarkOne");
         var canvasTwo = document.getElementById("bencmarkTwo");
 
         //data 1
-
         var dataRealisasiOne = {
             label: "Realisasi",
             data: [<?php dataBencmarkRealisasiJSON($dataOne); ?>],
@@ -113,7 +118,6 @@ if (isset($_GET['addData'])) {
         showChart(dataRealisasiOne, dataTargetOne, canvasOne);
 
         //data 2
-
         var dataRealisasiOne = {
             label: "Realisasi",
             data: [<?php dataBencmarkRealisasiJSON($dataTwo); ?>],
@@ -135,6 +139,21 @@ if (isset($_GET['addData'])) {
 
     </script>
     <?php
+}
+
+function getTitleBenchmark(int $id) {
+    $conn = conn();
+    $qry = mysqli_query($conn, "SELECT * FROM pmb WHERE id_pmb = '$id'");
+    while ($key = mysqli_fetch_array($qry)) {
+        $category = "";
+        if ($key['kategori_pmb'] == 1) {
+            $category = "Pendaftar";
+        } else {
+            $category = "Registrasi";
+        }
+
+        echo $category." - ".$key['tahun_realisasi_pmb']."/".$key['tahun_target_pmb'];
+    }
 }
 
 function dataBencmarkRealisasiJSON(int $id) {
@@ -213,14 +232,11 @@ function dataBencmarkTargetJSON(int $id) {
     }
 }
 
-if (isset($_GET['data_two']) != null && isset($_GET['data_one']) != null) {
-
-} else {
+if (isset($_GET['data_two']) == null && isset($_GET['data_one']) == null) {
     echo "<script>
         $(document).ready(function() {
             $('.checkRow').hide();
         });
     </script>";
 }
-
 ?>
