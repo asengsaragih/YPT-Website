@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Feb 2020 pada 08.14
+-- Waktu pembuatan: 16 Feb 2020 pada 19.59
 -- Versi server: 10.3.16-MariaDB
 -- Versi PHP: 7.3.6
 
@@ -64,7 +64,6 @@ CREATE TABLE `pmb` (
 --
 
 INSERT INTO `pmb` (`id_pmb`, `tahun_target_pmb`, `tahun_realisasi_pmb`, `kategori_pmb`, `id_kampus`, `id_target`, `id_realisasi`) VALUES
-(8, 2020, 2019, 2, 1, 36, 35),
 (10, 2020, 2019, 1, 1, 38, 37),
 (11, 2022, 2021, 2, 1, 39, 38);
 
@@ -101,10 +100,30 @@ INSERT INTO `realisasi` (`id_realisasi`, `tahun_realisasi`, `september_realisasi
 (32, 2019, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (33, 2019, 80, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (34, 2019, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(35, 2019, 365, 400, 325, 952, 100, 285, 352, 105, 800, 980, 650, 750),
+(35, 2019, 3651, 406, 325, 952, 100, 285, 352, 105, 800, 980, 650, 750),
 (36, 2055, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(37, 2019, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(38, 2021, 123, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(37, 2019, 100, 10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0),
+(38, 2021, 1230, 0, 0, 0, 10, 0, 0, 0, 10, 0, 90, 110),
+(39, 2030, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `role`
+--
+
+CREATE TABLE `role` (
+  `id_role` int(10) NOT NULL,
+  `nama_role` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `role`
+--
+
+INSERT INTO `role` (`id_role`, `nama_role`) VALUES
+(1, 'Administrator'),
+(2, 'Guest');
 
 -- --------------------------------------------------------
 
@@ -139,10 +158,11 @@ INSERT INTO `target` (`id_target`, `tahun_target`, `september_target`, `oktober_
 (33, 2020, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (34, 2020, 100, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (35, 2020, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(36, 2020, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 900, 920, 1000),
+(36, 2020, 123, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 900, 920, 1000),
 (37, 2056, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (38, 2020, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0),
-(39, 2022, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(39, 2022, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(40, 2031, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -153,17 +173,16 @@ INSERT INTO `target` (`id_target`, `tahun_target`, `september_target`, `oktober_
 CREATE TABLE `user` (
   `id_user` int(10) NOT NULL,
   `email_user` varchar(50) NOT NULL,
-  `password_user` varchar(50) NOT NULL
+  `password_user` varchar(50) NOT NULL,
+  `id_role` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id_user`, `email_user`, `password_user`) VALUES
-(1, 'aldiwahyu.saragih@gmail.com', '9df4006ea99b6b0c24fa027a3a7c04af'),
-(2, 'aldiwahyu.saragih@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b'),
-(3, 'michaelafro04@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b');
+INSERT INTO `user` (`id_user`, `email_user`, `password_user`, `id_role`) VALUES
+(16, 'aldiwahyu.saragih@gmail.com', '9df4006ea99b6b0c24fa027a3a7c04af', 1);
 
 --
 -- Indexes for dumped tables
@@ -191,6 +210,12 @@ ALTER TABLE `realisasi`
   ADD PRIMARY KEY (`id_realisasi`);
 
 --
+-- Indeks untuk tabel `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id_role`);
+
+--
 -- Indeks untuk tabel `target`
 --
 ALTER TABLE `target`
@@ -200,7 +225,8 @@ ALTER TABLE `target`
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD KEY `id_role` (`id_role`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -216,25 +242,31 @@ ALTER TABLE `kampus`
 -- AUTO_INCREMENT untuk tabel `pmb`
 --
 ALTER TABLE `pmb`
-  MODIFY `id_pmb` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_pmb` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `realisasi`
 --
 ALTER TABLE `realisasi`
-  MODIFY `id_realisasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_realisasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT untuk tabel `role`
+--
+ALTER TABLE `role`
+  MODIFY `id_role` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `target`
 --
 ALTER TABLE `target`
-  MODIFY `id_target` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_target` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -247,6 +279,12 @@ ALTER TABLE `pmb`
   ADD CONSTRAINT `pmb_ibfk_1` FOREIGN KEY (`id_realisasi`) REFERENCES `realisasi` (`id_realisasi`),
   ADD CONSTRAINT `pmb_ibfk_2` FOREIGN KEY (`id_target`) REFERENCES `target` (`id_target`),
   ADD CONSTRAINT `pmb_ibfk_3` FOREIGN KEY (`id_kampus`) REFERENCES `kampus` (`id_kampus`);
+
+--
+-- Ketidakleluasaan untuk tabel `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
