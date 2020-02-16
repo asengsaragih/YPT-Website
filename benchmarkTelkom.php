@@ -42,7 +42,7 @@ require "asset/controller/function.php";
             </div>
             <div class="card-body">
                 <div class="chart-area">
-                    <canvas id="multiAxisChart"></canvas>
+                    <canvas id="bencmarkOne"></canvas>
                 </div>
             </div>
         </div>
@@ -56,13 +56,14 @@ require "asset/controller/function.php";
             </div>
             <div class="card-body">
                 <div class="chart-area">
-                    <canvas id="multiAxisChart"></canvas>
+                    <canvas id="bencmarkTwo"></canvas>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+<script src="js/benchmark-chart.js"></script>
 
 <?php
 include ("main/footer.php");
@@ -86,23 +87,140 @@ function getDataPMBKampus(int $id_kampus) {
 if (isset($_GET['addData'])) {
     $dataOne = $_GET['data_one'];
     $dataTwo = $_GET['data_two'];
+    ?>
+    <script>
+        var canvasOne = document.getElementById("bencmarkOne");
+        var canvasTwo = document.getElementById("bencmarkTwo");
 
-    if ($dataOne == $dataTwo) {
-        toastMessage("Data 1 dan 2 harus beda");
-        return;
-    }
+        //data 1
+
+        var dataRealisasiOne = {
+            label: "Realisasi",
+            data: [<?php dataBencmarkRealisasiJSON($dataOne); ?>],
+            lineTension: 0,
+            fill: false,
+            borderColor: "rgba(78, 115, 223, 1)"
+        };
+
+        var dataTargetOne = {
+            label: "Target",
+            data: [<?php dataBencmarkTargetJSON($dataOne); ?>],
+            lineTension: 0,
+            fill: false,
+            borderColor: "rgba(223, 81, 102, 1)"
+        };
+
+        showChart(dataRealisasiOne, dataTargetOne, canvasOne);
+
+        //data 2
+
+        var dataRealisasiOne = {
+            label: "Realisasi",
+            data: [<?php dataBencmarkRealisasiJSON($dataTwo); ?>],
+            lineTension: 0,
+            fill: false,
+            borderColor: "rgba(78, 115, 223, 1)"
+        };
+
+        var dataTargetOne = {
+            label: "Target",
+            data: [<?php dataBencmarkTargetJSON($dataTwo); ?>],
+            lineTension: 0,
+            fill: false,
+            borderColor: "rgba(223, 81, 102, 1)"
+        };
+
+        showChart(dataRealisasiOne, dataTargetOne, canvasTwo);
 
 
+    </script>
+    <?php
 }
 
-function showChart(int $one, int $two) {
+function dataBencmarkRealisasiJSON(int $id) {
     $conn = conn();
+    $qry = mysqli_query($conn, "SELECT * FROM pmb WHERE id_pmb = '$id'");
+    while ($key = mysqli_fetch_array($qry)) {
+        $id_realisasi = $key['id_realisasi'];
+
+        $qry_realisasi = mysqli_query($conn, "SELECT * FROM realisasi WHERE id_realisasi='$id_realisasi'");
+        while ($key_realisasi = mysqli_fetch_array($qry_realisasi)) {
+            $september_realisasi = $key_realisasi['september_realisasi'];
+            $oktober_realisasi = $key_realisasi['oktober_realisasi'];
+            $november_realisasi = $key_realisasi['november_realisasi'];
+            $desember_realisasi = $key_realisasi['desember_realisasi'];
+            $januari_realisasi = $key_realisasi['januari_realisasi'];
+            $februari_realisasi = $key_realisasi['februari_realisasi'];
+            $maret_realisasi = $key_realisasi['maret_realisasi'];
+            $april_realisasi = $key_realisasi['april_realisasi'];
+            $mei_realisasi = $key_realisasi['mei_realisasi'];
+            $juni_realisasi = $key_realisasi['juni_realisasi'];
+            $juli_realisasi = $key_realisasi['juli_realisasi'];
+            $agustus_realisasi = $key_realisasi['agustus_realisasi'];
+
+            echo
+                $september_realisasi.", ".
+                $oktober_realisasi.", ".
+                $november_realisasi.", ".
+                $desember_realisasi.", ".
+                $januari_realisasi.", ".
+                $februari_realisasi.", ".
+                $maret_realisasi.", ".
+                $april_realisasi.", ".
+                $mei_realisasi.", ".
+                $juni_realisasi.", ".
+                $juli_realisasi.", ".
+                $agustus_realisasi;
+        }
+    }
+}
+
+function dataBencmarkTargetJSON(int $id) {
+    $conn = conn();
+    $qry = mysqli_query($conn, "SELECT * FROM pmb WHERE id_pmb = '$id'");
+    while ($key = mysqli_fetch_array($qry)) {
+        $id_target = $key['id_target'];
+
+        $qry_target = mysqli_query($conn, "SELECT * FROM target WHERE id_target='$id_target'");
+        while ($key_target = mysqli_fetch_array($qry_target)) {
+            $september_target = $key_target['september_target'];
+            $oktober_target = $key_target['oktober_target'];
+            $november_target = $key_target['november_target'];
+            $desember_target = $key_target['desember_target'];
+            $januari_target = $key_target['januari_target'];
+            $februari_target = $key_target['februari_target'];
+            $maret_target = $key_target['maret_target'];
+            $april_target = $key_target['april_target'];
+            $mei_target = $key_target['mei_target'];
+            $juni_target = $key_target['juni_target'];
+            $juli_target = $key_target['juli_target'];
+            $agustus_target = $key_target['agustus_target'];
+
+            echo
+                $september_target.", ".
+                $oktober_target.", ".
+                $november_target.", ".
+                $desember_target.", ".
+                $januari_target.", ".
+                $februari_target.", ".
+                $maret_target.", ".
+                $april_target.", ".
+                $mei_target.", ".
+                $juni_target.", ".
+                $juli_target.", ".
+                $agustus_target;
+        }
+    }
 }
 
 if (isset($_GET['data_two']) != null && isset($_GET['data_one']) != null) {
-//    echo "<style type='text/css'>.checkRow{display: none;}</style>";
-} else {
 
+} else {
+    echo "<script>
+        $(document).ready(function() {
+            $('.checkRow').hide();
+        });
+    </script>";
 }
 
 ?>
