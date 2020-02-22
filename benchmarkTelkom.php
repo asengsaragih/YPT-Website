@@ -12,15 +12,22 @@ include ("main/side.php");
     <div class="collapse show" id="collapseCardExample">
         <div class="card-body">
             <form class="user" method="GET">
+<!--                <div class="form-group">-->
+<!--                    <h6>Type</h6>-->
+<!--                    <select id="type" onchange="changeType()" class="custom-select custom-select-sm form-control form-control-sm">-->
+<!--                        <option value="Registrasi">Registrasi</option>-->
+<!--                        <option value="Pendaftar">Pendaftar</option>-->
+<!--                    </select>-->
+<!--                </div>-->
                 <div class="form-group">
                     <h6>Data PMB 1</h6>
-                    <select name="data_one" class="custom-select custom-select-sm form-control form-control-sm">
+                    <select id="dataPMB1" name="data_one" class="custom-select custom-select-sm form-control form-control-sm">
                         <?php getDataPMBKampus(1); ?>
                     </select>
                 </div>
                 <div class="form-group">
                     <h6>Data PMB 2</h6>
-                    <select name="data_two" class="custom-select custom-select-sm form-control form-control-sm">
+                    <select id="dataPMB2" name="data_two" class="custom-select custom-select-sm form-control form-control-sm">
                         <?php getDataPMBKampus(1); ?>
                     </select>
                 </div>
@@ -62,6 +69,24 @@ include ("main/side.php");
     </div>
 </div>
 <script src="js/benchmark-chart.js"></script>
+<script>
+    // function changeType() {
+    //     $("#valueOption").remove();
+    //     $("#valueOption2").remove();
+    //
+    //     var type = document.getElementById("type").value;
+    //     var content;
+    //     var content2;
+    //
+    //     if (type == "Pendaftar") {
+    //
+    //
+    //     } else if (type == "Registrasi") {
+    //
+    //     }
+    //
+    // }
+</script>
 
 <?php
 include ("main/footer.php");
@@ -81,6 +106,23 @@ function getDataPMBKampus(int $id_kampus) {
         <?php
     }
 }
+
+//function getDataPMBKampus2(int $id_kampus, int $categoryPMB) {
+//    $conn = conn();
+//    $qry = mysqli_query($conn, "SELECT * FROM pmb WHERE id_kampus = '$id_kampus' AND kategori_pmb = '$categoryPMB'");
+//    while ($key = mysqli_fetch_array($qry)) {
+//        $category = "";
+//        $id = "valueOption2";
+//        if ($key['kategori_pmb'] == 1) {
+//            $category = "Pendaftar";
+//        } else {
+//            $category = "Registrasi";
+//        }
+//        ?>
+<!--        <option id="--><?php //echo $id; ?><!--" value="--><?php //echo $key['id_pmb']; ?><!--">--><?php //echo $category." - ".$key['tahun_realisasi_pmb']."/".$key['tahun_target_pmb'];?><!--</option>-->
+<!--        --><?php
+//    }
+//}
 
 if (isset($_GET['addData'])) {
     $dataOne = $_GET['data_one'];

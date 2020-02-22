@@ -6,8 +6,8 @@
 
     define("EMAIL_SESSION", $_SESSION['email']);
 
-require "asset/controller/connection.php";
-require "asset/controller/function.php";
+require "assets/controller/connection.php";
+require "assets/controller/function.php";
 ?>
 
 <!DOCTYPE html>
