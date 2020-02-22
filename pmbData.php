@@ -18,7 +18,7 @@
     <!-- Content Row -->
     <div class="row">
 
-        <div class="col-xl-12 col-lg-7">
+        <div class="col-xl-12 col-lg-12">
 
             <!-- Area Chart -->
             <div class="card shadow mb-4">
@@ -34,7 +34,7 @@
 
         </div>
 
-        <div class="col-xl-6 col-lg-5">
+        <div class="col-xl-6 col-lg-6">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
@@ -65,39 +65,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-xl-6 col-lg-5">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Chart Bulanan Target</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="form-group">
-                        <h6>Pilih Bulan : </h6>
-                        <select id="monthChartTarget" class="custom-select custom-select-sm form-control form-control-sm" required onchange="showTargetMonthChart()">
-                            <option value="9">September</option>
-                            <option value="10">Oktober</option>
-                            <option value="11">November</option>
-                            <option value="12">Desember</option>
-                            <option value="1">Januari</option>
-                            <option value="2">Februari</option>
-                            <option value="3">Maret</option>
-                            <option value="4">April</option>
-                            <option value="5">Mei</option>
-                            <option value="6">Juni</option>
-                            <option value="7">Juli</option>
-                            <option value="8">Agustus</option>
-                        </select>
-                    </div>
-                    <div class="chart-bar pt-4">
-                        <canvas id="multiBarChartTarget"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         var chartOptionsBar;
@@ -172,30 +139,6 @@
             }
         };
 
-        var canvasChartBulananTarget = document.getElementById("multiBarChartTarget");
-
-        var barChartTarget = new Chart(canvasChartBulananTarget, {
-            type: 'bar',
-            data: {
-                label: "Data Gabungan",
-                datasets: [
-                    {
-                        label: "Data Tahunan",
-                        data: [<?php totalfullMonthTargetPMB(idPMB()) ?>],
-                        backgroundColor: 'rgba(99, 132, 0, 0.6)',
-                        borderWidth: 0
-                    },
-                    {
-                        label: "Data Bulanan",
-                        data: [<?php totalOneMonthTargetPMB(idPMB(), 9);?>],
-                        backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                        borderWidth: 0
-                    }
-                ]
-            },
-            options: chartOptionsBar
-        });
-
         var canvasChartBulanan = document.getElementById("multiBarChartRealisasi");
 
         var barChartRealisasi = new Chart(canvasChartBulanan, {
@@ -204,15 +147,21 @@
                 label: "Data Gabungan",
                 datasets: [
                     {
-                        label: "Data Tahunan",
-                        data: [<?php totalfullMonthRealisasiPMB(idPMB()) ?>],
+                        label: "All Target",
+                        data: [<?php totalfullMonthTargetPMB(idPMB()) ?>],
                         backgroundColor: 'rgba(99, 132, 0, 0.6)',
                         borderWidth: 0
                     },
                     {
-                        label: "Data Bulanan",
-                        data: [<?php totalOneMonthRealisasiPMB(idPMB(), 9);?>],
+                        label: "Bulanan Target",
+                        data: [<?php totalfullMonthTargetPMB(idPMB()) ?>],
                         backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                        borderWidth: 0
+                    },
+                    {
+                        label: "Bulanan Arch",
+                        data: [<?php totalOneMonthRealisasiPMB(idPMB(), 9);?>],
+                        backgroundColor: 'rgba(255,165,0,0.6)',
                         borderWidth: 0
                     }
                 ]
@@ -285,6 +234,70 @@
                 valueRealisasi = desRealisasi;
             }
 
+            var valueNilaiTargetBulanan = document.getElementById('monthChartRealisasi').value;
+            var valueTarget;
+
+            var sepTarget = <?php totalOneMonthTargetPMB(idPMB(), 9);?>;
+            var oktTarget = <?php totalOneMonthTargetPMB(idPMB(), 10);?>;
+            var novTarget = <?php totalOneMonthTargetPMB(idPMB(), 11);?>;
+            var desTarget = <?php totalOneMonthTargetPMB(idPMB(), 12);?>;
+            var janTarget = <?php totalOneMonthTargetPMB(idPMB(), 1);?>;
+            var febTarget = <?php totalOneMonthTargetPMB(idPMB(), 2);?>;
+            var marTarget = <?php totalOneMonthTargetPMB(idPMB(), 3);?>;
+            var aprTarget = <?php totalOneMonthTargetPMB(idPMB(), 4);?>;
+            var meiTarget = <?php totalOneMonthTargetPMB(idPMB(), 5);?>;
+            var junTarget = <?php totalOneMonthTargetPMB(idPMB(), 6);?>;
+            var julTarget = <?php totalOneMonthTargetPMB(idPMB(), 7);?>;
+            var aguTarget = <?php totalOneMonthTargetPMB(idPMB(), 8);?>;
+
+            if (valueNilaiTargetBulanan == 1) {
+                valueTarget = janTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 2) {
+                valueTarget = febTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 3) {
+                valueTarget = marTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 4) {
+                valueTarget = aprTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 5) {
+                valueTarget = meiTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 6) {
+                valueTarget = junTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 7) {
+                valueTarget = julTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 8) {
+                valueTarget = aguTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 9) {
+                valueTarget = sepTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 10) {
+                valueTarget = oktTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 11) {
+                valueTarget = novTarget;
+            }
+
+            if (valueNilaiTargetBulanan == 12){
+                valueTarget = desTarget;
+            }
+
             barChartRealisasi.destroy();
             barChartRealisasi = new Chart(canvasChartBulanan, {
                 type: 'bar',
@@ -292,15 +305,21 @@
                     label: "Data Gabungan",
                     datasets: [
                         {
-                            label: "Data Tahunan",
-                            data: [<?php totalfullMonthRealisasiPMB(idPMB()) ?>],
+                            label: "All Target",
+                            data: [<?php totalfullMonthTargetPMB(idPMB()) ?>],
                             backgroundColor: 'rgba(99, 132, 0, 0.6)',
                             borderWidth: 0
                         },
                         {
-                            label: "Data Bulanan",
-                            data: [valueRealisasi],
+                            label: "Bulanan Target",
+                            data: [valueTarget],
                             backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                            borderWidth: 0
+                        },
+                        {
+                            label: "Bulanan Arch",
+                            data: [valueRealisasi],
+                            backgroundColor: 'rgba(255,165,0,0.6)',
                             borderWidth: 0
                         }
                     ]
