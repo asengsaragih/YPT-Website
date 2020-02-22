@@ -51,7 +51,20 @@
             return;
         }
 
-        insertUser($email, $password, $id_role);
+        $sql = "SELECT * FROM user WHERE email_user = '$email'";
+        $qry_check = mysqli_query($conn, $sql);
+        $check = mysqli_num_rows($qry_check);
+
+        if ($check > 0) {
+            toastMessage("User Sudah Ada");
+            return;
+        }
+
+
+        $qry = mysqli_query($conn, "INSERT INTO user (email_user, password_user, id_role) VALUES ('$email', '$password', '$id_role')");
+        if ($qry) {
+            toastMessage("Berhasil Membuat User");
+        }
 
     }
 
@@ -65,23 +78,23 @@
         }
     }
 
-    function insertUser(String $email, String $password, int $role) {
-        $conn = conn();
-        $sql = "SELECT * FROM user WHERE email_user = '$email'";
-        $qry = mysqli_query($conn, $sql);
-        $check = mysqli_num_rows($qry);
+//    function insertUser(String $email, String $password, int $role) {
+//        $conn = conn();
+//        $sql = "SELECT * FROM user WHERE email_user = '$email'";
+//        $qry = mysqli_query($conn, $sql);
+//        $check = mysqli_num_rows($qry);
 
-        if ($check > 0) {
-            toastMessage("User Sudah Ada");
-            return;
-        }
-
-        $qryInsert = mysqli_query($conn, "INSERT INTO user (id_user, email_user, password_user, id_role) VALUES ('', '$email', '$password', '$role')");
-        if ($qryInsert) {
-            toastMessage("User Berhasil Ditambahkan");
-        } else {
-            toastMessage("Gagal Membuat User");
-            return;
-        }
-    }              
+//        if ($check > 0) {
+//            toastMessage("User Sudah Ada");
+//            return;
+//        }
+//
+//        $qryInsert = mysqli_query($conn, "INSERT INTO user (id_user, email_user, password_user, id_role) VALUES ('', '$email', '$password', '$role')");
+//        if ($qryInsert) {
+//            toastMessage("User Berhasil Ditambahkan");
+//        } else {
+//            toastMessage("Gagal Membuat User");
+//            return;
+//        }
+//    }
 ?>
