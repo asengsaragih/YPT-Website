@@ -38,7 +38,7 @@ CREATE TABLE `kampus` (
 --
 
 INSERT INTO `kampus` (`id_kampus`, `nama_kampus`) VALUES
-(1, 'Tel-u'),
+(1, 'Tel U'),
 (2, 'ITTP'),
 (3, 'Akatel'),
 (4, 'ITTS');

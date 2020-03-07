@@ -20,7 +20,6 @@ if (isset($_POST['login'])) {
     } else {
         toastMessageIntent("login.php", "Username Atau Password Salah");
     }
-
 } else {
     header("location: login.php");
 }

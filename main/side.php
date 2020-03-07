@@ -155,24 +155,26 @@ require "assets/controller/function.php";
             </div>
         </li>
 
-      <!-- Nav Item - Pages Collapse Menu -->
-<!--      <li class="nav-item">-->
-<!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">-->
-<!--          <i class="fas fa-fw fa-folder"></i>-->
-<!--          <span>PMB</span>-->
-<!--        </a>-->
-<!--        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">-->
-<!--          <div class="bg-white py-2 collapse-inner rounded">-->
-<!--            <h6 class="collapse-header">Input Data</h6>-->
-<!--            <a class="collapse-item" href="inputPMB.php">Input PMB</a>-->
-<!--            <h6 class="collapse-header">Kampus</h6>-->
-<!--            <a class="collapse-item" href="pmbTelkom.php">Tel-U</a>-->
-<!--            <a class="collapse-item" href="pmbITTP.php">ITTP</a>-->
-<!--            <a class="collapse-item" href="pmbAkatel.php">Akatel</a>-->
-<!--            <a class="collapse-item" href="pmbITTS.php">ITTS</a>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </li>-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                <i class="fa fa-users"></i>
+                <span>Mahasiswa</span>
+            </a>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Kampus:</h6>
+                    <a class="collapse-item" href="mahasiswa.php?MHS=<?php echo MHS_AKTIF; ?>">Mahasiswa Aktif</a>
+                    <a class="collapse-item" href="mahasiswa.php?MHS=<?php echo MHS_NONAKTIF; ?>">Mahasiswa Non Aktif</a>
+                    <a class="collapse-item" href="mahasiswa.php?MHS=<?php echo MHS_LULUS; ?>">Mahasiswa Lulus</a>
+                    <a class="collapse-item" href="#">Mahasiswa DO</a>
+                    <a class="collapse-item" href="#">Mahasiswa Resign</a>
+                    <a class="collapse-item" href="#">Mahasiswa In Bound</a>
+                    <a class="collapse-item" href="#">Mahasiswa Transfer</a>
+                    <a class="collapse-item" href="#">Mahasiswa Asing</a>
+                    <a class="collapse-item" href="#">Mahasiswa Beasiswa</a>
+                </div>
+            </div>
+        </li>
 
 
       <!-- Heading -->

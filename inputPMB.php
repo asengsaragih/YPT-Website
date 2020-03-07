@@ -163,7 +163,7 @@
                     <td><?php echo $i++; ?></td>
                     <td><a href="<?php echo "pmbData.php?id_pmb=".$id; ?>"><?php showCampusName($key['id_kampus']); ?></a></td>
                     <td><?php echo $key['tahun_target_pmb'] ?></td>
-                    <td><?php echo $key['tahun_realisasi_pmb'] ?></td>
+                    <td><?php echo $key['tahun_realisasi_pmb'] . "/" . $key['tahun_target_pmb'] ?></td>
                     <td><?php
                         if ($category == 1) {
                             echo "Pendaftar";

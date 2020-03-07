@@ -1,6 +1,16 @@
 <?php
+    define("MHS_AKTIF", "Aktif");
+    define("MHS_NONAKTIF", "Non Aktif");
+    define("MHS_LULUS", "Lulus");
+    define("MHS_DO", "DO");
+    define("MHS_RESIGN", "Resign");
+    define("MHS_INBOUND", "In Bound");
+    define("MHS_TRANSFER", "Transfer");
+    define("MHS_ASING", "Asing");
+    define("MHS_BEASISWA", "Beasiswa");
     // require "connection.php";
     include_once "connection.php";
+
 
     // function checkUser(String $email) {
     //     $conn = conn();
