@@ -44,7 +44,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <h6>Pilih Bulan : </h6>
-                        <select id="monthChartRealisasi" class="custom-select custom-select-sm form-control form-control-sm" required onchange="showRealisasiMonthChart()">
+                        <select id="monthChartRealisasi" class="custom-select custom-select-sm form-control form-control-sm" required onchange="showRealisasiMonthChart(); getMonthChart();">
                             <option value="9">September</option>
                             <option value="10">Oktober</option>
                             <option value="11">November</option>
@@ -59,6 +59,7 @@
                             <option value="8">Agustus</option>
                         </select>
                     </div>
+                    <button formtarget="_blank" class="btn btn-primary" onclick="intentToProgressDownload()">PDF Progress PMB</button>
                     <div class="chart-bar pt-4">
                         <canvas id="multiBarChartRealisasi"></canvas>
                     </div>
@@ -547,9 +548,33 @@
             data: labelData,
             options: chartOptions
         });
+
+        function getMonthChart() {
+            return document.getElementById('monthChartRealisasi').value;
+        }
+
+        function intentToProgressDownload() {
+            var month = getMonthChart();
+            var id = "<?php echo idPMB(); ?>";
+
+            var realMonth;
+
+            if (month == null) {
+                realMonth = 9;
+            } else {
+                realMonth = month;
+            }
+
+            window.location.href = "pdf-progress.php?id="+id+"&month="+realMonth;
+        }
     </script>
 <?php
     include ("main/footer.php");
+
+    function getLinkProgress() {
+        $id = idPMB();
+
+    }
 
     function totalOneMonthTargetPMB(int $id, String $month) {
         $conn = conn();
